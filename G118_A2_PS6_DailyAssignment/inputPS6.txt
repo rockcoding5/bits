@@ -1,0 +1,16 @@
+No of servers: 5
+Routing Table for server A
+A B 40
+B A 60
+A D 100
+A E 10
+B C 20
+B D 80
+C D 30
+C B 250
+C E 60
+D E 10
+E A 1
+E B 2
+E C 3
+E D 5
