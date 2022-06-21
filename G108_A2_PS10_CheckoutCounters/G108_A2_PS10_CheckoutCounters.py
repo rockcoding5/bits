@@ -42,8 +42,7 @@ def cleanup_output_file(output_file):
     :return: None
     """
     # Current folder is parent folder
-    if os.path.isfile(os.path.join('', output_file)):
-        os.remove(os.path.join('', output_file))
+    os.remove(os.path.join('', output_file))
 
 
 def write_output(output_file, to_write):
@@ -240,12 +239,13 @@ if __name__ == '__main__':
     start_end_intervals_sorted = cust_heap_sort(input_list=start_end_intervals)
     # print(start_end_intervals_sorted)
 
-    # Clean the Output file if present
-    cleanup_output_file(output_file=output_file_name)
-
     # Find minimum checkout counters required
     min_counter_req = min_counters(intervals=start_end_intervals_sorted)
     # print(min_counter_req)
+
+    # Clean the Output file if present
+    if os.path.isfile(os.path.join('', output_file_name)):
+        cleanup_output_file(output_file=output_file_name)
 
     # Write the minimum checkout counters required as a file
     write_output(output_file=output_file_name, to_write=min_counter_req)
