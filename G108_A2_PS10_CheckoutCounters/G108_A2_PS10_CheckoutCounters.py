@@ -59,6 +59,58 @@ def write_output(output_file, to_write):
         outf.write(to_write)
 
 
+def cust_heapify(input_list, element, i):
+    """
+    This function just writes the text given to it in the output file (output*.txt)
+    :param input_list:
+    :param element:
+    :param i:
+    :return: List
+    """
+    largest = i  # Initialize largest as root
+    l = 2 * i + 1  # left = 2*i + 1
+    r = 2 * i + 2  # right = 2*i + 2
+
+    # See if left child of root exists and is
+    # greater than root
+    if l < element and input_list[i] < input_list[l]:
+        largest = l
+
+    # See if right child of root exists and is
+    # greater than root
+    if r < element and input_list[largest] < input_list[r]:
+        largest = r
+
+    # Change root, if needed
+    if largest != i:
+        input_list[i], input_list[largest] = input_list[largest], input_list[i]  # swap
+
+        # Heapify the root.
+        cust_heapify(input_list, element, largest)
+
+
+def cust_heap_sort(input_list):
+    """
+    This function to sort a List of given size, using Custom HeapSort implementation
+    :param input_list:
+    :return: List
+    """
+    length = len(input_list)
+
+    # Build a minheap.
+    # Since last parent will be at ((n//2)-1) we can start at that location.
+    for elem in range(length // 2 - 1, -1, -1):
+        cust_heapify(input_list, length, elem)
+
+    # One by one extract elements
+    for elem in range(length - 1, 0, -1):
+        input_list[elem], input_list[0] = input_list[0], input_list[elem]  # swap
+        # here i=0. assumption that largest is zero ie: 0
+        cust_heapify(input_list=input_list, element=elem, i=0)
+
+    return input_list
+
+
 def shift_up_with_parent(heap, pos):
     """
     This function to Shift up the Element with Parent
@@ -170,20 +222,6 @@ def get_end_time(input_list):
     return start_end_time
 
 
-def sort_start_end_intervals(input_list):
-    """
-    This function to Sort Input List, withOut using sort function
-    :param input_list:
-    :return: List
-    """
-    for i in range(len(input_list)):
-        for j in range(i + 1, len(input_list)):
-            if input_list[i] > input_list[j]:
-                input_list[i], input_list[j] = input_list[j], input_list[i]
-    # print(input_list)
-    return input_list
-
-
 if __name__ == '__main__':
     # Initialize the Paths. Current folder is parent folder
     parentFolderPath = ''
@@ -199,7 +237,7 @@ if __name__ == '__main__':
     # print(start_end_intervals)
 
     # Sort Input List, withOut using sort function
-    start_end_intervals_sorted = sort_start_end_intervals(input_list=start_end_intervals)
+    start_end_intervals_sorted = cust_heap_sort(input_list=start_end_intervals)
     # print(start_end_intervals_sorted)
 
     # Clean the Output file if present
