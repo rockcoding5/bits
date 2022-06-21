@@ -11,17 +11,16 @@ def read_input_file(input_file):
     :return: list[list[]]
     """
     try:
-        with open(os.path.join(parentFolderPath, input_file), 'r') as input_file:
+        with open(os.path.join('', input_file), 'r') as input_file:
             lines = input_file.readlines()
             if len(lines) == 0:
                 print('Input file is Empty! Please check')
             else:
                 input_list = []
-                input_list2 = []
                 try:
                     for line in lines:
-                        input_list.append([int(sub_line) for sub_line in
-                                           line.rstrip('\n').strip("''[]'").replace(' ', '').split(',')])
+                        input_temp = line.rstrip('\n').strip("'[]'").replace(' ', '').split(',')
+                        input_list.append([int(input_temp[0]), int(input_temp[1])])
                     # print(input_list)
                 except:
                     print(f"Incorrect format of input dataset. Expected e.g '[0, 1]' in each line ")
@@ -42,8 +41,9 @@ def cleanup_output_file(output_file):
     :param output_file:
     :return: None
     """
-    if os.path.isfile(os.path.join(parentFolderPath, output_file)):
-        os.remove(os.path.join(parentFolderPath, output_file))
+    # Current folder is parent folder
+    if os.path.isfile(os.path.join('', output_file)):
+        os.remove(os.path.join('', output_file))
 
 
 def write_output(output_file, to_write):
@@ -54,7 +54,7 @@ def write_output(output_file, to_write):
     :return: None
     """
     to_write = 'Minimum Checkout counters required: ' + str(to_write)
-    print(to_write)
+    # print(to_write)
     with open(output_file, 'a+') as outf:
         outf.write(to_write)
 
@@ -173,7 +173,7 @@ def cust_heap_push(heap, item):
 
 def cust_heap_push_pop(heap, item):
     """
-    This function to Fast version of a heappush followed by a heappop.
+    This function to implement heappush followed by a heappop.
     :param heap:
     :param item:
     :return: item
@@ -224,7 +224,7 @@ def get_end_time(input_list):
 
 if __name__ == '__main__':
     # Initialize the Paths. Current folder is parent folder
-    parentFolderPath = ''
+
     input_file_name = 'inputPS10.txt'
     output_file_name = 'outputPS10.txt'
 
