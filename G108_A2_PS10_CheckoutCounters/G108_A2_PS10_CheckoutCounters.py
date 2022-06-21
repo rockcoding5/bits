@@ -138,8 +138,6 @@ def min_counters(intervals):
     :param intervals:
     :return: int
     """
-    # Sort the input List dataset - [start point, checkout time]
-    intervals.sort()
     counters = 0
     checkout_counter_list = []
     for interval in intervals:
