@@ -172,6 +172,20 @@ def get_end_time(input_list):
     return start_end_time
 
 
+def sort_start_end_intervals(input_list):
+    """
+    This function to Sort Input List, withOut using sort function
+    :param input_list:
+    :return: List
+    """
+    for i in range(len(input_list)):
+        for j in range(i + 1, len(input_list)):
+            if input_list[i] > input_list[j]:
+                input_list[i], input_list[j] = input_list[j], input_list[i]
+    # print(input_list)
+    return input_list
+
+
 if __name__ == '__main__':
     # Initialize the Paths. Current folder is parent folder
     parentFolderPath = ''
@@ -186,11 +200,15 @@ if __name__ == '__main__':
     start_end_intervals = get_end_time(input_list=input_file_list)
     # print(start_end_intervals)
 
+    # Sort Input List, withOut using sort function
+    start_end_intervals_sorted = sort_start_end_intervals(input_list=start_end_intervals)
+    # print(start_end_intervals_sorted)
+
     # Clean the Output file if present
     cleanup_output_file(output_file=output_file_name)
 
     # Find minimum checkout counters required
-    min_counter_req = min_counters(intervals=start_end_intervals)
+    min_counter_req = min_counters(intervals=start_end_intervals_sorted)
     # print(min_counter_req)
 
     # Write the minimum checkout counters required as a file
