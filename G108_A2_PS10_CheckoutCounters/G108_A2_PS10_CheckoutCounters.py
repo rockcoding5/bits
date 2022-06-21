@@ -17,6 +17,7 @@ def read_input_file(input_file):
                 print('Input file is Empty! Please check')
             else:
                 input_list = []
+                input_list2 = []
                 try:
                     for line in lines:
                         input_list.append([int(sub_line) for sub_line in
@@ -158,6 +159,19 @@ def min_counters(intervals):
     return counters
 
 
+def get_end_time(input_list):
+    """
+    This function to calculate the End time by using start time and required checkout time
+    :param input_list:
+    :return: List
+    """
+    start_end_time = []
+    for il in input_list:
+        start_end_time.append([il[0], (il[0]) + il[1]])
+        # print(start_end_time)
+    return start_end_time
+
+
 if __name__ == '__main__':
     # Initialize the Paths. Current folder is parent folder
     parentFolderPath = ''
@@ -168,14 +182,18 @@ if __name__ == '__main__':
     input_file_list = read_input_file(input_file=input_file_name)
     # print('Input File List : ' + str(input_file_list))
 
+    # Calculate the End time by using start time and required checkout time
+    start_end_intervals = get_end_time(input_list=input_file_list)
+    # print(start_end_intervals)
+
     # Clean the Output file if present
     cleanup_output_file(output_file=output_file_name)
 
     # Find minimum checkout counters required
-    min_counter_req = min_counters(input_file_list)
+    min_counter_req = min_counters(intervals=start_end_intervals)
     # print(min_counter_req)
 
     # Write the minimum checkout counters required as a file
-    write_output(output_file_name, min_counter_req)
+    write_output(output_file=output_file_name, to_write=min_counter_req)
 
     print(f"Program Successfully executed!")
