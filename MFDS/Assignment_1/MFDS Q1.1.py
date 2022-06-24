@@ -1,12 +1,14 @@
-# Assignment from Batch # 108 -
+# Assignment from Batch : 108
 
-# Dheeraj Tuteja -
-# Manikandana -
-# Deepak -
+# SHILOJU SHIVA KUMARACHARY
+# VARUN KAMATH
+# BALAJI N
 
 
 # Q1.1 - Write a function to check whether a given square matrix is diagonally dominant. Test the function on a randomly
-# generated 4 × 4 matrix.Deliverable(s) : Code that performs the check and the results obtained for the matrix 
+# generated 4 × 4 matrix.
+# Deliverable(s) :
+#   Code that performs the check and the results obtained for the matrix
 
 
 import numpy as np
@@ -22,9 +24,9 @@ rand_matrx = np.random.randint(low=2, high=4, size=(4, 4))
 #               [-1, 2, 4, 0],
 #               [2, -1, 3, 6]]
 
-print(rand_matrx)
-print(rand_matrx.shape)
-print(rand_matrx.shape[0])
+print("Random Matrix 4*4:\n" + str(rand_matrx))
+# print(rand_matrx.shape)
+# print(rand_matrx.shape[0])
 
 
 # Function to check diagonally dominant

@@ -1,87 +1,57 @@
-#!/usr/bin/env python
-# coding: utf-8
+# Assignment from Batch : 108
 
-# In[29]:
-
-
-# Assignment from Batch # 287 - 
-
-#Dheeraj Tuteja -
-#Manikandana - 
-#Deepak -
+# SHILOJU SHIVA KUMARACHARY
+# VARUN KAMATH
+# BALAJI N
 
 
-# In[30]:
-
-
-# Q1.5 - Write a function that perform  Gauss Jacobi iterations. Generate a random 4 × 4 matrix A and generate a random b ∈ R^4
-# Report the results of passing this matrix to function written in (i). Solve linear system Ax = b by using function in (ii). 
-# Generate a plot of ∥xk+1 − xk∥2 for first 100 iterations. Does it converge ? or Is it diverging? Specify your observation. 
-# Take a screenshot of plot and paste it in the assignment document.
+# Q1.5 - Write a function that perform  Gauss Jacobi iterations. Generate a random 4 × 4 matrix A and generate a
+# random b ∈ R^4 Report the results of passing this matrix to function written in (i). Solve linear system Ax = b by
+# using function in (ii). Generate a plot of ∥xk+1 − xk∥2 for first 100 iterations. Does it converge ? or Is it
+# diverging? Specify your observation. Take a screenshot of plot and paste it in the assignment document.
 
 # Repeat part (iv) for the Gauss Jacobi iteration
 
 
-# In[31]:
-
-
-#import numpy
+import matplotlib.pyplot as plt
 import numpy as np
-from numpy import array,inf
-from numpy.linalg import norm 
-from scipy.linalg import solve
+from numpy import zeros, diag, diagflat, dot
 
 np.seterr(divide='ignore', invalid='ignore')
 
-
-# In[33]:
-
-
 # Generate Random Matrix
 
-RandomMatrix = np.random.randint(100, size=(4, 4)) 
+rand_matrx = np.random.randint(100, size=(4, 4))
 # Assumption for creating a matrix : Random log will choose integers between 1 an 10.
-# Size of the Matrix is given in the problem statement 4 X 4 
+# Size of the Matrix is given in the problem statement 4 X 4
 
-print((RandomMatrix)) #Print Array (matrix)
-print(type(RandomMatrix)) #Print type of the array
-print(RandomMatrix.shape) #Print shape of the array
+print("Random Matrix 4*4:\n" + str(rand_matrx) + "\n")
 
-B = np.random.randint(100, size=(4, 1)) # AX = B (RHS)
-print((B)) #Print Array (matrix)
-print(type(B)) #Print type of the array
-print(B.shape) #Print shape of the array
+B = np.random.randint(100, size=(4, 1))  # AX = B (RHS)
+print("B Matrix 4*1:\n" + str(B) + "\n")
 
 
-# In[34]:
-
-
-# Funnction to check diagonally dominant
-def IsDiagonallyDominant(MyMatrix):
-    D = np.diag(np.abs(MyMatrix)) # Find diagonal coefficients
-    S = np.sum(np.abs(MyMatrix), axis=1) - D # Find row sum without diagonal
+# Function to check diagonally dominant
+def check_diagonal_dominant_matrix(matrix):
+    D = np.diag(np.abs(matrix))  # Find diagonal coefficients
+    S = np.sum(np.abs(matrix), axis=1) - D  # Find row sum without diagonal
     if np.all(D > S):
-        print ('matrix is diagonally dominant')
+        return True
     else:
-        print ('NOT diagonally dominant')
-    return
+        return False
 
 
-# In[35]:
+# Call the function and pass the numpy array (matrix)
+# Check given matrix is diagonal_dominant_matrix or not
+if check_diagonal_dominant_matrix(matrix=rand_matrx):
+    print("The matrix is a diagonally dominant matrix\n")
+else:
+    print("The matrix is not a diagonally dominant matrix\n")
 
 
-#Call the function and pass the numpy array (matrix)
-IsDiagonallyDominant(RandomMatrix)
+# Solves the equation Ax=b via the Jacobi iterative method
+def generate_jacobi(A, b, N=99, x=None):
 
-
-# In[36]:
-
-
-from pprint import pprint
-from numpy import array, zeros, diag, diagflat, dot
-
-def jacobi(A,b,N=99,x=None):
-    """Solves the equation Ax=b via the Jacobi iterative method."""
     # Create an initial guess if needed                                                                                                                                                            
     if x is None:
         x = zeros(len(A[0]))
@@ -94,53 +64,23 @@ def jacobi(A,b,N=99,x=None):
     # Iterate for N times                                                                                                                                                                          
     for i in range(N):
         x = x.astype('float64')
-        x = (b - dot(R,x)) / D
+        x = (b - dot(R, x)) / D
     return x
 
 
-# In[37]:
-
-
 # int(input())input as number of variable to be solved
-A = RandomMatrix
+A = rand_matrx
 b = B
 N = 99
 # initial solution depending on n(here n=3)
-x = np.ones((4, 1), dtype = int)
+x = np.ones((4, 1), dtype=int)
 
-print(A)
-print(b)
-print(N)
-print(x)
+print("N:" + str(N))
 
 
-# In[38]:
+x_jacobi = generate_jacobi(A, b, N, x)
+print("x_jacobi : " + str(x_jacobi) + "\n")
 
-
-sol = jacobi(A,b,N,x)
-
-print ("A:")
-pprint(A)
-
-print ("b:")
-pprint(b)
-
-print ("x:")
-pprint(sol)
-
-
-# In[28]:
-
-
-import matplotlib.pyplot as plt
-
-plt.plot(x)
-#plt.yscale('log')
+plt.plot(x_jacobi)
+# plt.yscale('log')
 plt.show()
-
-
-# In[ ]:
-
-
-
-
